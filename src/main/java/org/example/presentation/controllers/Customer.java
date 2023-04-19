@@ -12,7 +12,6 @@ import org.example.services.CustomerService;
 import java.util.List;
 
 
-
 public class Customer {
     public void add(CustomerEditDto customerDto) {
         CustomerService customerService = new CustomerService();
