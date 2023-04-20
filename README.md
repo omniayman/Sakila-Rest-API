@@ -1,5 +1,7 @@
 # Sakila-Rest-API
 This is a restful API that allows users to interact with the Sakila database. This API provides CRUD for customer, address, film, actor, category, staff, store, payment, rental, and inventory tables in Sakila database.
+# Documentation
+https://documenter.getpostman.com/view/26734817/2s93Y2T2Jy
 # Technologies used:
 - Tomcat
 - MySql
@@ -105,5 +107,4 @@ This is a restful API that allows users to interact with the Sakila database. Th
 * GET /store/{id}/manager: Returns the manager of the store with the specified ID.
 * GET /store/{id}/films: Returns a list of films available at the store with the specified ID.
 * GET /store/{id}/rents: Returns a list of rentals for the store with the specified ID.
-# Documentation 
-https://documenter.getpostman.com/view/26734817/2s93Y2T2Jy
+
