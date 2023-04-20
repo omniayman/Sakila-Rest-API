@@ -1,6 +1,8 @@
 package org.example.presentation.controllers;
 
 
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.*;
 import org.example.dtos.RentalDto;
 import org.example.dtos.Staff.StaffDto;
 import org.example.dtos.address.AddressDto;
@@ -14,19 +16,32 @@ import org.example.services.StoreService;
 import java.util.List;
 
 
+@Path("store")
 public class Store {
     StoreService storeService = new StoreService();
 
-    public List<StoreDto> getAllStores() {
-
-        return storeService.getAllStores();
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getAllStores(@Context UriInfo uriInfo) {
+        List<StoreDto> stores = storeService.getAllStores();
+        GenericEntity entity = new GenericEntity<List<StoreDto>>(stores) {
+        };
+        Link self = Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder()).rel("self").build();
+        return Response.ok(entity).links(self).build();
     }
 
-    public StoreDto getStoreById(int id) {
+    @GET
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getStoreById(@PathParam("id") int id, @Context  UriInfo uriInfo) {
 
-        return storeService.getStoreById(id);
+        Link self = Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder()).rel("self").build();
+        Link getAll = Link.fromPath(uriInfo.getBaseUri().toString().concat("rents")).build();
+        StoreDto store = storeService.getStoreById(id);
+        return Response.ok(store).link(self.getUri(), "self").link(getAll.getUri(), "getAll").build();
     }
-
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 
     public void updateStore(StoreEditDto storeDto) {
 
@@ -34,44 +49,79 @@ public class Store {
         storeService.updateStore(storeDto);
     }
 
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void addStore(StoreEditDto storeDto) throws InvalidDataException {
 
         storeService.addStore(storeDto);
     }
+    @GET
+    @Path("{id}/address")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getStoreAddress(@PathParam("id")int id) {
 
-    public AddressDto getStoreAddress(int id) {
 
+        AddressDto addressDto = storeService.getStoreAddress(id);
 
-        return storeService.getStoreAddress(id);
+        return Response.ok(addressDto).build();
     }
 
 
-    public List<CustomerDto> getStoreCustomers(int id) {
+    @GET
+    @Path("{id}/customers")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getStoreCustomers(@PathParam("id")int id) {
 
-        return storeService.getStoreCustomers(id);
+        List<CustomerDto> customerDtos = storeService.getStoreCustomers(id);
+        GenericEntity entity = new GenericEntity<List<CustomerDto>>(customerDtos) {
+        };
+        return Response.ok(entity).build();
     }
 
 
-    public List<StaffDto> getStoreStaff(int id) {
+    @GET
+    @Path("{id}/staff")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getStoreStaff(@PathParam("id")int id) {
 
-        return storeService.getStoreStaff(id);
+        List<StaffDto> staff = storeService.getStoreStaff(id);
+        GenericEntity entity = new GenericEntity<List<StaffDto>>(staff) {
+        };
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("{id}/manager")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+
+    public Response getStoreManager(@PathParam("id")int id) {
+
+        StaffDto staffDto = storeService.getStoreManager(id);
+
+        return Response.ok(staffDto).build();
     }
 
 
-    public StaffDto getStoreManager(int id) {
+    @GET
+    @Path("{id}/films")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getStoreFilms(@PathParam("id")int id) {
 
-        return storeService.getStoreManager(id);
+        List<FilmDto> films = storeService.getStoreFilms(id);
+        GenericEntity entity = new GenericEntity<List<FilmDto>>(films) {
+        };
+        return Response.ok(entity).build();
     }
 
 
-    public List<FilmDto> getStoreFilms(int id) {
+    @GET
+    @Path("{id}/rents")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getStoreRentals(@PathParam("id")int id) {
 
-        return storeService.getStoreFilms(id);
-    }
-
-
-    public List<RentalDto> getStoreRentals(int id) {
-
-        return storeService.getStoreRentals(id);
+        List<RentalDto> RentalDto = storeService.getStoreRentals(id);
+        GenericEntity entity = new GenericEntity<List<RentalDto>>(RentalDto) {
+        };
+        return Response.ok(entity).build();
     }
 }

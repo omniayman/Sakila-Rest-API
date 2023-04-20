@@ -30,7 +30,7 @@ public class Category {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getCategoryById(@PathParam("oid") int id, @Context UriInfo uriInfo) {
         Link self = Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder()).rel("self").build();
-        Link getAll = Link.fromPath(uriInfo.getBaseUri().toString().concat("address")).build();
+        Link getAll = Link.fromPath(uriInfo.getBaseUri().toString().concat("category")).build();
         CategoryDto category = categoryService.getCategoryById(id);
         return Response.ok(category).link(self.getUri(), "self").link(getAll.getUri(), "getAll").build();
     }

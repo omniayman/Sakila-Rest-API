@@ -21,12 +21,12 @@ public class AddressDto implements Serializable {
     private String postalCode;
     private String phone;
     private Date lastUpdate;
-    private byte[] location;
+
 
     public AddressDto() {
     }
 
-    public AddressDto(Integer id, String address, String address2, String district, String postalCode, String phone, Date lastUpdate, byte[] location) {
+    public AddressDto(Integer id, String address, String address2, String district, String postalCode, String phone, Date lastUpdate) {
         this.id = id;
         this.address = address;
         this.address2 = address2;
@@ -34,16 +34,10 @@ public class AddressDto implements Serializable {
         this.postalCode = postalCode;
         this.phone = phone;
         this.lastUpdate = lastUpdate;
-        this.location = location;
+
     }
 
-    public byte[] getLocation() {
-        return location;
-    }
 
-    public void setLocation(byte[] location) {
-        this.location = location;
-    }
 
     public Integer getId() {
         return id;
