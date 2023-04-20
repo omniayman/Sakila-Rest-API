@@ -42,10 +42,15 @@ public class Rental {
     @PUT
     @Path("return/{oid}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void returnRent(@PathParam("oid") int id) throws InvalidDataException {
+    public Response returnRent(@PathParam("oid") int id) throws InvalidDataException {
+        try {
+            rentalService.returnRent(id);
+        }
+catch (InvalidDataException e) {
+        return Response.ok("this rent is already returned").build();
+}
+        return Response.ok("this rent is  returned successfully").build();
 
-
-        rentalService.returnRent(id);
     }
 
     @POST

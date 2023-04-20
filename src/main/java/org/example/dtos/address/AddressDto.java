@@ -1,5 +1,8 @@
 package org.example.dtos.address;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import org.example.presistance.entities.Address;
 import org.example.presistance.entities.Payment;
 
@@ -12,6 +15,8 @@ import java.util.Objects;
 /**
  * A DTO for the {@link Address} entity
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class AddressDto implements Serializable {
     private Integer id;
     private String address;

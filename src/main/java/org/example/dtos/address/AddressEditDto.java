@@ -1,5 +1,9 @@
 package org.example.dtos.address;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -7,6 +11,8 @@ import java.util.Objects;
 /**
  * A DTO for the {@link org.example.presistance.entities.Address} entity
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class AddressEditDto implements Serializable {
     private Integer id;
     private String address;

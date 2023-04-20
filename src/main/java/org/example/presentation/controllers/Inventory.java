@@ -3,7 +3,6 @@ package org.example.presentation.controllers;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
-import org.example.dtos.address.AddressDto;
 import org.example.dtos.film.FilmDto;
 import org.example.dtos.inventory.InventoryDto;
 import org.example.dtos.inventory.InventoryRentalDto;
@@ -43,18 +42,18 @@ public class Inventory {
     public void updateInventory(InventoryDto inventoryDto) {
 
 
-        inventoryService.updatePayment(inventoryDto);
+        inventoryService.updateInventory(inventoryDto);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void addInventory(InventoryDto inventoryDto) throws InvalidDataException {
 
-        inventoryService.addPayment(inventoryDto);
+        inventoryService.addInventory(inventoryDto);
     }
 
     @GET
-    @Path("{id}/filmsCountInInventory")
+    @Path("{id}/checkInventoryInStock")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response checkInventoryInStock(@PathParam("id") int id) throws InvalidDataException {
         boolean inventoryInStock=inventoryService.checkInventoryInStock(id);
@@ -66,7 +65,7 @@ public class Inventory {
     }
 
     @GET
-    @Path("{id}/films")
+    @Path("{id}/film")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getFilmByInventoryId(@PathParam("id") int id) throws InvalidDataException {
         FilmDto filmDto = inventoryService.getFilmByInventoryId(id);

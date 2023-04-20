@@ -82,7 +82,7 @@ public class Staff {
 
 
     @GET
-    @Path("{id}/rents")
+    @Path("{id}/isManager")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 
     public Response checkStaffManager(@PathParam("id")int id) {

@@ -44,7 +44,7 @@ public class InventoryService {
     }
 
 
-    public void updatePayment(InventoryDto inventoryDto) {
+    public void updateInventory(InventoryDto inventoryDto) {
 
 
         LocalDate localDate = LocalDate.now();
@@ -55,7 +55,7 @@ public class InventoryService {
         inventoryDao.update(inventory);
     }
 
-    public void addPayment(InventoryDto inventoryDto) throws InvalidDataException {
+    public void addInventory(InventoryDto inventoryDto) throws InvalidDataException {
 
         LocalDate localDate = LocalDate.now();
         ZoneId defaultZoneId = ZoneId.systemDefault();
